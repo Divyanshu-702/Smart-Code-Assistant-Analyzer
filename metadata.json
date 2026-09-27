@@ -1,0 +1,6 @@
+{
+  "name": "CodePilot AI",
+  "description": "Intelligent Code Analysis Platform — Understand, Analyze, Secure, Optimize, and Build Better Code.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

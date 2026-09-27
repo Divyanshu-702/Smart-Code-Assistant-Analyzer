@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "User": {
+      "description": "User profile authenticated via Firebase Auth",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User avatar URL" }
+      },
+      "relationships": {}
+    },
+    "Project": {
+      "description": "User project sandbox",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "relationships": {}
+    },
+    "AnalysisResult": {
+      "description": "Saved analysis results",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectName": { "type": "string" },
+        "fileName": { "type": "string" },
+        "language": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "relationships": {}
+    }
+  },
+  "firestore": {
+    "rules": "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{userId} {\n      allow read, write: if request.auth != null && request.auth.uid == userId;\n    }\n    match /projects/{projectId} {\n      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;\n      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;\n    }\n    match /history/{historyId} {\n      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;\n      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;\n    }\n  }\n}"
+  }
+}
